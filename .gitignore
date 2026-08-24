@@ -9,4 +9,44 @@ wheels/
 # Virtual environments
 .venv
 
+# Environment variables (keep .env.example)
 .env
+.env.*
+!.env.example
+
+# Test & lint cache
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Playwright
+test-results/
+playwright-report/
+.playwright/
+
+# Logs
+logs/
+*.log
+
+# Databases
+*.db
+*.sqlite3
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+.claude/
+.trae/
+
+#项目运行
+data/*.db
+data/*.sqlite
+logs/
+screenshots/
+.pytest_cache/
+.ruff_cache/
