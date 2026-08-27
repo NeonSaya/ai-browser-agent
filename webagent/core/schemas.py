@@ -47,6 +47,7 @@ class DomElement(BaseModel):
     role:str |None=None #元素的类型
     name:str |None=None #元素的名字
     bbox:tuple[int,int,int,int] | None=None  #[x,y,w,h]屏幕坐标
+    in_viewport:bool=False #是否在视口内
 
 class PageSnapshot(BaseModel):
     '''单次感知产出的页面快照'''
@@ -54,7 +55,7 @@ class PageSnapshot(BaseModel):
     title:str=""
     text_summary:str=""
     elements:list[DomElement]=Field(default_factory=list)
-    screen_bs64:str=""
+    screenshot_bs64:str=""
     viewport:tuple[int,int]=(0,0)
     captured_at:datetime=Field(default_factory=datetime.now)
 

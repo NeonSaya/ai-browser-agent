@@ -31,8 +31,8 @@ class BrowserSettings(BaseSettings):
     mode: Literal["launch", "cdp"] = "launch"
     cdp_url: str = "http://localhost:9222"
     headless: bool = False  # 是否无头模式
-    viewpoint_width: int = 1440  # 视口宽度
-    viewpoint_height: int = 900  # 视口高度
+    viewport_width: int = 1440  # 视口宽度
+    viewport_height: int = 900  # 视口高度
     user_agent: str | None = None  # 为空就是浏览器默认user_agent
 
     auto_focus_window: bool = True  # 是否自动聚焦窗口
