@@ -11,7 +11,7 @@ def main()->int:
         print("Commands:")
         print("  self-check: 验证核心层所有组件能正常工作")
         print("  browser-smoke: 浏览器冒烟测试")
-        print("  perceive-smoke: 感知层冒烟测试")
+        print("  perceive-smoke: 视觉感知层冒烟测试")
         return 1
     command=sys.argv[1]
     if command=="self-check":
