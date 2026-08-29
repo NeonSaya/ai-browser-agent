@@ -166,7 +166,7 @@ class PerceptionCollector:
             text=el.text or el.name or ""
             text=text[:60]
             lines.append(
-                f"[{el.index}] <{el.tag}> selector={el.selector} text={text!r}"
+                f"[{el.index}] <{el.tag}> name={el.name!r} selector={el.selector} text={text!r}"
             )
         return "\n".join(lines)
             

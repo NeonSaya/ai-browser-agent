@@ -46,12 +46,16 @@ SYSTEM_PROMPT = """
 - 当遇到无法继续时输出 action_type=error
 - 优先使用 dom_selector，仅在确实无 selector 可用时给出 screen_x/screen_y
 - 不要重复执行历史中已经失败/无效的动作
+- input元素是输入框，点击输入框只会聚焦，不会提交表单；输入完成后提交搜索/表单，优先用 press_key（Enter），或点击"搜索/提交"按钮（button/label）
 - 严禁输出 JSON 以外的任何内容
 
 【示例 1】任务：在搜索框中搜索 "OpenAI"
 {"action_type":"input","dom_selector":"[data-wa-id=\"12\"]","input_text":"OpenAI","reason":"在搜索框输入关键词"}
 
-【示例 2】任务完成
+【示例 2】输入完成后按回车提交搜索
+{"action_type":"press_key","dom_selector":"[data-wa-id=\"12\"]","key":"Enter","reason":"按回车提交搜索"}
+
+【示例 3】任务完成
 {"action_type":"done","reason":"已抵达目标页面，任务完成"}
 """
 def _build_user_message(
@@ -79,10 +83,17 @@ def _build_user_message(
         )
     else:
         if history:
-            reflexion_parts.append(
-                "【上一步成功】\n"
-                f"动作{history[-1].action_type} 已成功执行，请检查任务是否已经达成"
-            )
+            page_still=(prev_url==snapshot.url) and (prev_title==snapshot.title)
+            if page_still:
+                reflexion_parts.append(
+                    "【警告】上一步动作已执行但页面URL和标题均未变化，该动作很可能无效！"
+                    "严禁重复相同动作，请改选其他元素或换操作方式（如press_key回车提交）"
+                )
+            else:
+                reflexion_parts.append(
+                    "【上一步成功】\n"
+                    f"动作{history[-1].action_type} 已成功执行，请检查任务是否已经达成"
+                )
     # 页面变化提示
     if prev_url is not None and prev_url != snapshot.url:
         reflexion_parts.append(f"【页面已跳转】{prev_url}->{snapshot.url}")
@@ -186,7 +197,7 @@ class VLMClient:
             },
         ]
 
-        log.message(f"调用LLM | model={self.settings.model} | elements={len(snapshot.elements)}")
+        log.info(f"调用LLM | model={self.settings.model} | elements={len(snapshot.elements)}")
         try:
             resp=self._client.chat.completions.create(
                 model=self.settings.model,
@@ -210,7 +221,7 @@ class VLMClient:
         log.debug(f"LLM模型输出：{content[:300]}")
 
         action=_parse_action(content)
-        log.info(f"AI决策->{action.action_type} | selector={action.selector} | reason={action.reason}")
+        log.info(f"AI决策->{action.action_type} | selector={action.dom_selector} | reason={action.reason}")
         return action
 
 
