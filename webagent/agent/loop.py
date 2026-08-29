@@ -1,24 +1,20 @@
 '''agent主循环（状态机驱动）'''
 from __future__ import annotations
 
-from optparse import Option
 import uuid
 import threading
-import time
-from dataclasses import dataclass,field
+from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
-from typing import Optional,Callable
+from typing import Optional, Callable
 
-from sqlalchemy import exc
 from transitions import Machine
 
 from webagent.agent.llm_client import VLMClient
 from webagent.core.config import SCREENSHOT_DIR, get_settings
-from webagent.core.exceptions import AgentLoopError
 from webagent.core.logger import init_logger
 from webagent.core.schemas import Action, StepRecord, Task, TaskStatus
-from webagent.core.storage import SessionLocal, StepRow, TaskRow, init_db 
+from webagent.core.storage import SessionLocal, StepRow, TaskRow, init_db
 from webagent.executor.actions import ActionExecutor
 from webagent.executor.browser import BrowserManager
 from webagent.perception.collector import PerceptionCollector

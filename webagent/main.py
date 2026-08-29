@@ -1,10 +1,7 @@
-from math import log
 import sys
 import base64
 from datetime import datetime
 from pathlib import Path
-from turtle import settiltangle
-from webagent import executor
 from webagent.core.config import PROJECT_ROOT, get_settings
 from webagent.core.logger import init_logger
 from webagent.core.storage import init_db

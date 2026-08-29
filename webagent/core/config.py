@@ -1,5 +1,6 @@
 from __future__ import annotations  # 开启注释解析
 
+import sys
 from functools import lru_cache  # 缓存配置加载
 from pathlib import Path  # os.path优雅版本
 from typing import Literal  # 限制字符串的取值
@@ -7,8 +8,11 @@ from typing import Literal  # 限制字符串的取值
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
 
-# 在当前目录下加载配置文件，上面两级就是根目录
-PROJECT_ROOT: Path = Path(__file__).resolve().parents[2]
+# 打包后（EXE）数据落在 EXE 所在目录；源码运行时落在项目根目录
+if getattr(sys, "frozen", False):  # PyInstaller 打包模式
+    PROJECT_ROOT: Path = Path(sys.executable).resolve().parent
+else:
+    PROJECT_ROOT: Path = Path(__file__).resolve().parents[2]
 DATA_DIR: Path = PROJECT_ROOT / "data"
 LOG_DIR: Path = PROJECT_ROOT / "logs"
 SCREENSHOT_DIR: Path = PROJECT_ROOT / "screenshots"

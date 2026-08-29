@@ -144,8 +144,7 @@ class BrowserManager:
 
         if not candidates:
             raise BrowserError("未找到任何的浏览器窗口")
-            return
-        
+
         #选择面积最大的窗口
         target=max(candidates,key=lambda w:getattr(w,"width",0)*getattr(w,"height",0))
         try:

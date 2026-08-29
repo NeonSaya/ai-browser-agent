@@ -20,7 +20,7 @@ b = PageSnapshot(
     title="百度一下，你就知道",
     text_summary="这是一个百度搜索页面",
     elements=[DomElement(index=0, tag="div", text="这是一个div", selector="div")],
-    screen_bs64="base64编码的图片",
+    screenshot_bs64="base64编码的图片",
     viewport=(1920, 1080),
     captured_at=datetime.now(),
 )

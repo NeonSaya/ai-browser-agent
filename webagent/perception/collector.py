@@ -2,11 +2,9 @@ from __future__ import annotations
 
 import base64
 import io
-from tracemalloc import Snapshot
 from typing import TYPE_CHECKING
 
 from PIL import Image
-from sqlalchemy import exc
 
 from webagent.core.config import get_settings
 from webagent.core.exceptions import PerceptionError

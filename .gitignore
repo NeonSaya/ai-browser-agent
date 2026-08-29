@@ -1,10 +1,14 @@
 # Python-generated files
 __pycache__/
 *.py[oc]
+*.pyd
+*.whl
 build/
 dist/
+build_tmp/
 wheels/
 *.egg-info
+release/
 
 # Virtual environments
 .venv
@@ -13,6 +17,11 @@ wheels/
 .env
 .env.*
 !.env.example
+
+# Node / frontend
+node_modules/
+frontend/dist/
+*.tsbuildinfo
 
 # Test & lint cache
 .pytest_cache/
@@ -24,6 +33,7 @@ htmlcov/
 test-results/
 playwright-report/
 .playwright/
+ms-playwright/
 
 # Logs
 logs/
@@ -32,6 +42,10 @@ logs/
 # Databases
 *.db
 *.sqlite3
+
+# 项目运行产物
+data/
+screenshots/
 
 # OS
 .DS_Store
@@ -42,11 +56,3 @@ Thumbs.db
 .vscode/
 .claude/
 .trae/
-
-#项目运行
-data/*.db
-data/*.sqlite
-logs/
-screenshots/
-.pytest_cache/
-.ruff_cache/
