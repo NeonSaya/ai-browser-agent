@@ -1,4 +1,6 @@
-# WebAgent
+# ai-browser-agent
+
+> A multimodal AI browser agent that autonomously plans and executes web tasks via a perception-reasoning-action loop, powered by Playwright + LLM.
 
 自然语言驱动的 AI 浏览器自动化（RPA）桌面应用。输入一句指令，Agent 自动控制浏览器完成任务，并提供实时监控、历史回溯、日志查看与配置管理。
 
